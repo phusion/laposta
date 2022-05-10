@@ -107,19 +107,18 @@ module Laposta
 
   private
     def format_query(params)
-      p = URI::Parser.new
       res = []
       if params.is_a?(Hash)
         res << params.map do |k, v|
           case v
           when Hash
-            v.map { |nk, nv| "#{k}[#{nk}]=#{p.escape(nv.to_s)}" }.join("&")
+            v.map { |nk, nv| "#{k}[#{nk}]=#{URI.encode_www_form_component(nv.to_s)}" }.join("&")
           when Symbol, String
-            "#{k}=#{p.escape(v)}"
+            "#{k}=#{URI.encode_www_form_component(v)}"
           when Array then
-            v.map { |c| "#{k}[]=#{p.escape(c.to_s)}" }.join("&")
+            v.map { |c| "#{k}[]=#{URI.encode_www_form_component(c.to_s)}" }.join("&")
           else
-            "#{k}=#{p.escape(v.to_s)}"
+            "#{k}=#{URI.encode_www_form_component(v.to_s)}"
           end
         end
       end
