@@ -114,7 +114,7 @@ module Laposta
       # campaign_id  string (mandatory)  The ID of the campaign
       # ------------------------------------------------------------
       def send_campaign!(campaign_id)
-        update("campaign/#{campaign_id}/action/send")
+        update("campaign/#{campaign_id}/action/send", {})
       end
 
       # Parameters
